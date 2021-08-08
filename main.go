@@ -3,37 +3,37 @@ package main
 import (
 	"flag"
 	"fmt"
-	"utils"
+	"Trovilo/brute"
 )
 
-func brute(wordlist []string, util utils.Conf, url string) {
+func findDashboard(wordlist []string, machine brute.Conf, url string) {
 	for _, endswith := range wordlist {
-		res := util.Request(url + endswith)
+		res := machine.Request(url + endswith)
 		if res["status_code"] == "200" {
-			utils.Write(res["url"])
+			brute.Write(res["url"])
 		}
 	}
 }
 
 func parse(Wordlist string, Tor bool, Url string) {
-	var conf utils.Conf
-	param := utils.Parser(Wordlist)
+	var conf brute.Conf
+	param := brute.Parser(Wordlist)
 	if Tor {
-		tor := utils.NewTor()
+		tor := brute.NewTor()
 		tor.Check_IP()
 		conf.Set_Tor(true)
 	}
 	for _, wordlist := range param {
-		conf := utils.NewConf(wordlist)
-		go brute(conf.Content, conf, Url)
+		conf := brute.NewConf(wordlist)
+		go findDashboard(conf.Content, conf, Url)
 	}
 }
 
 func main() {
-	utils.Banner()
+	brute.Banner()
 	var Wordlist = flag.String("Wordlist", "0", "Wordlist Path.")
-	var Url = flag.String("url", "u érri éli", "Url")
-	var Tor = flag.Bool("tor", false, "Seta o Tor")
+	var Url = flag.String("url", "http://pudim.com.br/", "Website URL")
+	var Tor = flag.Bool("tor", false, "Set up a tor proxy")
 	flag.Parse()
 	parse(*Wordlist, *Tor, *Url)
 	var input string

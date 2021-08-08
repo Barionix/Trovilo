@@ -1,11 +1,11 @@
-package utils
+package brute
 
 import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
 
-	"h12.me/socks"
+	"h12.io/socks"
 )
 
 var T Transport

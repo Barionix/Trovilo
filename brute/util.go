@@ -1,4 +1,4 @@
-package utils
+package brute
 
 import (
 	"fmt"
@@ -43,7 +43,7 @@ func Write(url string) {
 	_ = ioutil.WriteFile("output/res.txt", res, 0644)
 }
 func Banner() {
-	banner, err := ioutil.ReadFile("src/banner.txt")
+	banner, err := ioutil.ReadFile("brute/banner.txt")
 	check_error(err)
 	fmt.Print(string(banner))
 }
